@@ -1,0 +1,47 @@
+# --- Logs ---
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# --- Node ---
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# --- Python ---
+venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+
+# --- Environment Variables ---
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# --- macOS ---
+.DS_Store
+
+# --- VS Code ---
+.vscode/*
+!.vscode/extensions.json
+
+# --- JetBrains IDEs ---
+.idea/
+
+# --- Windows / Misc ---
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+Thumbs.db
