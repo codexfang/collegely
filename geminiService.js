@@ -1,7 +1,7 @@
 // geminiService.js
 // Gemini API Service via Flask backend
 
-const BASE_URL = "https://collegely-backend.onrender.com"; // Make sure this matches your Render URL
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 // Generic POST call to Flask /api/chat endpoint
 export async function callGemini(prompt) {
