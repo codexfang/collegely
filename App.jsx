@@ -28,7 +28,7 @@ export default function App() {
       <header className="app-header flex justify-between items-center px-4 py-3">
         <div className="flex items-center">
           <img
-            src="CollegelyLogo.png"
+            src="/CollegelyLogo.png"
             alt="Collegely Logo"
             className="logo h-10 w-auto"
           />
@@ -41,24 +41,10 @@ export default function App() {
               className={`nav-button ${activeTab === tab.id ? 'active' : ''}`}
               onClick={() => setActiveTab(tab.id)}
             >
-              {translations[language]?.[tab.label] || tab.label}
+              {tab.label}
             </button>
           ))}
         </nav>
-
-        <div className="language-selector">
-          <select
-            className="language-select"
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-          >
-            {languages.map((lang) => (
-              <option key={lang.code} value={lang.code}>
-                {lang.label}
-              </option>
-            ))}
-          </select>
-        </div>
       </header>
 
       <main className="main-content">
@@ -77,13 +63,3 @@ export default function App() {
     </div>
   );
 }
-
-const translations = {
-  zh: {
-    'Admissions Predictor': '录取预测器',
-    'Essay Analyzer': '作文分析器',
-    'Scholarship Finder': '奖学金搜索器',
-    'Resume Builder': '简历生成器',
-    'Dataset Viewer': '数据预览器',
-  },
-};
