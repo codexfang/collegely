@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import logo from './CollegelyLogo.png';
 import AdmissionsPredictor from './AdmissionsPredictor';
 import EssayAnalyzer from './EssayAnalyzer';
 import ScholarshipFinder from './ScholarshipFinder';
@@ -24,17 +23,17 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('admissions');
   const [language, setLanguage] = useState('en');
 
-  return (
-    <div className="app-container">
-      <header className="app-header flex justify-between items-center px-4 py-3">
-        {/* Logo on the top left */}
-        <div className="flex items-center">
-          <img
-            src={logo}
-            alt="Collegely Logo"
-            className="logo h-10 w-auto"
-          />
-        </div>
+return (
+  <div className="app-container">
+    <header className="app-header flex justify-between items-center px-4 py-3">
+      {/* Logo on the top left */}
+      <div className="flex items-center">
+        <img
+          src="/CollegelyLogo.png"  // <- directly reference public folder
+          alt="Collegely Logo"
+          className="logo h-10 w-auto"
+        />
+      </div>
 
         {/* Tabs in the center */}
         <nav className="nav-tabs flex-grow flex justify-center gap-4">
