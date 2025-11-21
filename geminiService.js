@@ -23,39 +23,63 @@ export async function callGemini(prompt) {
   }
 }
 
-// Predict college admissions with detailed analysis
+// Predict college admissions with more robust parsing + logging
 export async function predictAdmissions(formData) {
-  const prompt = `
-You are a top college admissions expert with access to comprehensive historical admission data.
+  // formData.college should be the full human-readable college label (e.g. "University of California, Berkeley")
+  // If you ever pass a code (like 'uc_berkeley'), make sure AdmissionsPredictor maps it -> label before calling.
+  const collegeNameSafe = formData.college || "the specified college";
 
-Analyze this student's chances for ${formData.college} with extreme detail. Include academic competitiveness, extracurriculars impact, and personalized suggestions.
+  const prompt = `
+You are a top college admissions expert. Use the exact college name given below when referring to the school.
+
+College: "${collegeNameSafe}"
 
 Student Profile:
-- GPA: ${formData.gpa}
-- SAT Score: ${formData.sat}
+- GPA: ${formData.gpa || 'N/A'}
+- SAT Score: ${formData.sat || 'N/A'}
 - Extracurriculars: ${formData.extracurriculars || 'Not specified'}
 
-Format your response as:
-CHANCE: [percentage like 45%]
-EXPLANATION: [3-4 sentences analyzing academic and extracurricular strength]
-RECOMMENDATIONS: [5 actionable tips for improving chances]
-`;
+Please produce a clear, machine-parseable answer using these exact sections (use uppercase labels and put each section on its own lines):
+
+CHANCE: [single percentage like "45%"]
+EXPLANATION: [3-4 sentences analyzing academic and extracurricular strength relative to the school's typical admits]
+RECOMMENDATIONS:
+1. [First actionable recommendation]
+2. [Second actionable recommendation]
+3. [Third actionable recommendation]
+4. [Optional fourth recommendation]
+
+If you cannot estimate a percent confidently, still provide your best numeric estimate (single percentage) and label it "CHANCE:".
+  `;
 
   try {
+    // callGemini returns raw text from Gemini
     const result = await callGemini(prompt);
 
-    const chanceMatch = result.match(/CHANCE:\s*(\d+%)/i);
-    const explanationMatch = result.match(/EXPLANATION:\s*(.*?)(?=RECOMMENDATIONS:|$)/s);
-    const recommendationsMatch = result.match(/RECOMMENDATIONS:\s*(.*?)$/s);
+    // Debug log (keep while debugging, remove later if noisy)
+    console.debug('predictAdmissions - raw Gemini response:', result);
+
+    // 1) Strict parse for CHANCE: N%
+    let chanceMatch = result.match(/CHANCE:\s*([0-9]{1,3}(?:\.[0-9]+)?\s*%)/i);
+    // 2) Looser parse if strict fails - any percent-like token
+    if (!chanceMatch) {
+      chanceMatch = result.match(/([0-9]{1,3}(?:\.[0-9]+)?)\s*percent/i) || result.match(/([0-9]{1,3}(?:\.[0-9]+)?)\s*%/);
+    }
+
+    // Explanation and recommendations
+    const explanationMatch = result.match(/EXPLANATION:\s*(.*?)(?=RECOMMENDATIONS:|$)/is);
+    const recommendationsMatch = result.match(/RECOMMENDATIONS:\s*(.*)$/is);
+
+    // If explanation missing, try to extract first paragraph as fallback
+    const fallbackExplanation = result.split(/\n\n/)[0] || result;
 
     return {
-      chance: chanceMatch ? chanceMatch[1] : "50%",
-      explanation: explanationMatch ? explanationMatch[1].trim() : result,
-      recommendations: recommendationsMatch
-        ? recommendationsMatch[1].trim()
-        : "Strengthen academics, highlight leadership and achievements, and craft compelling essays."
+      chance: chanceMatch ? (typeof chanceMatch[1] === 'string' ? chanceMatch[1].trim() : String(chanceMatch[1])) : '50%',
+      explanation: explanationMatch ? explanationMatch[1].trim() : fallbackExplanation.trim(),
+      recommendations: recommendationsMatch ? recommendationsMatch[1].trim() : '1) Strengthen academics (GPA/test scores)  2) Highlight leadership and impact in extracurriculars  3) Write compelling, specific essays  4) Get strong recommender letters'
     };
   } catch (error) {
+    console.error('predictAdmissions error:', error);
     return {
       chance: "Error occurred. Please try again.",
       explanation: "Unable to analyze at this time.",

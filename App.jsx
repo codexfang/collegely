@@ -29,10 +29,10 @@ export default function App() {
         {/* Logo on the top left */}
         <div className="flex items-center">
           <img
-            src="/CollegelyLogo.png"   // <-- reference directly from public folder
-            alt="Collegely Logo"
-            className="logo h-10 w-auto"
-          />
+  src="/collegely/CollegelyLogo.png" // <-- include your repo base if deploying to GitHub Pages
+  alt="Collegely Logo"
+  className="logo h-10 w-auto"
+/>
         </div>
 
         {/* Tabs in the center */}
