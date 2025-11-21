@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import logo from './CollegelyLogo.png';
 import AdmissionsPredictor from './AdmissionsPredictor';
 import EssayAnalyzer from './EssayAnalyzer';
 import ScholarshipFinder from './ScholarshipFinder';
@@ -29,7 +30,7 @@ export default function App() {
         {/* Logo on the top left */}
         <div className="flex items-center">
           <img
-            src="/CollegelyLogo.png"
+            src={logo}
             alt="Collegely Logo"
             className="logo h-10 w-auto"
           />
