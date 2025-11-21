@@ -60,7 +60,7 @@ export default function ScholarshipFinder({ language = 'en' }) {
     setLoading(true);
     setResults(null);
 
-    // QUICK OVERRIDE: Show "under improvement" message
+    // SHOW UNDER IMPROVEMENT MESSAGE ONLY
     setResults([{
       name: 'Scholarship Finder (Under Improvement)',
       description: 'We are currently updating the scholarship database. This feature is temporarily paused while we run tests and improvements.',
