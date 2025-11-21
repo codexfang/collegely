@@ -62,51 +62,96 @@ def chat():
 # -----------------------
 # Scholarships endpoint
 # -----------------------
+# -----------------------
+# Scholarships endpoint (structured tag/field matching)
+# -----------------------
 @app.route('/api/scholarships', methods=['GET'])
 def get_scholarships():
     try:
         # Load the full scholarships JSON
-        with open("scholarships.json", "r") as f:
+        with open("scholarships.json", "r", encoding="utf-8") as f:
             all_scholarships = json.load(f)
 
-        # Filter based on query parameters
+        # Query params from frontend
         low_income = request.args.get("lowIncome") == "true"
         first_gen = request.args.get("firstGen") == "true"
         volunteer = request.args.get("volunteer") == "true"
         veteran = request.args.get("veteran") == "true"
         disability = request.args.get("disability") == "true"
         min_gpa = request.args.get("minGPA")
-        state = request.args.get("state")
-        major = request.args.get("major")
+        state = (request.args.get("state") or "").strip().lower()
+        major = (request.args.get("major") or "").strip().lower()
+        ethnicity = (request.args.get("ethnicity") or "").strip().lower()
+        gender = (request.args.get("gender") or "").strip().lower()
 
-        filtered = []
-        for s in all_scholarships:
-            reqs = s.get("requirements", "").lower()
-            if low_income and "low income" not in reqs:
-                continue
-            if first_gen and "first generation" not in reqs:
-                continue
-            if volunteer and "volunteer" not in reqs:
-                continue
-            if veteran and "veteran" not in reqs:
-                continue
-            if disability and "disability" not in reqs:
-                continue
+        def scholarship_matches(s):
+            # Normalize fields
+            tags = [t.lower() for t in (s.get("tags") or [])]
+            majors = [m.lower() for m in (s.get("majors") or [])]
+            states = [st.lower() for st in (s.get("states") or [])]
+            minGPA_field = s.get("minGPA", s.get("minimumGPA", None))
+
+            # Check boolean flags by tag
+            if low_income and "low-income" not in tags and "financial-need" not in tags:
+                return False
+            if first_gen and "first-gen" not in tags and "first-generation" not in tags:
+                return False
+            if volunteer and "volunteer" not in tags and "community-service" not in tags:
+                return False
+            if veteran and "veteran" not in tags and "military" not in tags:
+                return False
+            if disability and "disability" not in tags:
+                return False
+
+            # GPA check (scholarship minGPA <= requested min_gpa)
             if min_gpa:
                 try:
-                    gpa_val = float(min_gpa)
-                    # Assuming your JSON has a "minGPA" field
-                    if float(s.get("minGPA", 0)) > gpa_val:
-                        continue
+                    user_gpa = float(min_gpa)
+                    if minGPA_field is not None:
+                        try:
+                            sch_gpa = float(minGPA_field)
+                            # If scholarship requires higher GPA than user has, exclude it
+                            if sch_gpa > user_gpa:
+                                return False
+                        except (TypeError, ValueError):
+                            # can't parse scholarship minGPA, ignore
+                            pass
                 except ValueError:
                     pass
-            if state and state.lower() not in s.get("requirements", "").lower():
-                continue
-            if major and major.lower() not in s.get("requirements", "").lower():
-                continue
-            filtered.append(s)
 
-        # Limit to 15 scholarships max
+            # State check: if scholarship is state-limited, require match
+            if states:
+                if state and state not in states:
+                    return False
+                # if user didn't specify a state, we still allow national scholarships (so do not exclude when state absent)
+            # Major check: if scholarship specifies majors, user major must match at least one
+            if majors:
+                if major:
+                    # allow partial match: e.g., "engineering" matches "mechanical engineering"
+                    if not any(major in m or m in major for m in majors):
+                        return False
+                else:
+                    # scholarship is major-specific but user didn't select one -> include it (frontend can filter further)
+                    pass
+
+            # Ethnicity / gender checks (if scholarship has tags for them)
+            if ethnicity:
+                # scholarship must include the ethnicity tag OR "underrepresented" tag
+                if not (ethnicity in tags or f"{ethnicity}" in tags or "underrepresented" in tags):
+                    return False
+            if gender:
+                if not (gender in tags or f"{gender}" in tags):
+                    return False
+
+            return True
+
+        filtered = [s for s in all_scholarships if scholarship_matches(s)]
+
+        # If no filters provided, return the first 15 as a default discovery list
+        if not any([low_income, first_gen, volunteer, veteran, disability, min_gpa, state, major, ethnicity, gender]):
+            return jsonify(all_scholarships[:15])
+
+        # Return up to 15 results
         return jsonify(filtered[:15])
 
     except Exception as e:
@@ -118,4 +163,6 @@ def get_scholarships():
 # Run server
 # -----------------------
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001, debug=True)
+    # Use the port Render provides or default to 5001
+    port = int(os.environ.get("PORT", 5001))
+    app.run(host="0.0.0.0", port=port, debug=True)
