@@ -1,7 +1,7 @@
 // geminiService.js
 // Gemini API Service via Flask backend
 
-const BASE_URL = "http://127.0.0.1:5000"; // Flask backend
+const BASE_URL = "http://127.0.0.1:5001"; // matches Flask backend port
 
 export async function callGemini(prompt) {
   try {
