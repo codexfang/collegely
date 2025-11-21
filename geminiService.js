@@ -1,7 +1,7 @@
 // geminiService.js
 // Gemini API Service via Flask backend
 
-const BASE_URL = "http://10.112.184.116:5001"; // use your local network IP
+const BASE_URL = "https://collegely-backend.onrender.com";
 
 export async function callGemini(prompt) {
   try {

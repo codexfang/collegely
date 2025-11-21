@@ -60,6 +60,4 @@ def chat():
         return jsonify({"error": "Internal server error", "details": str(e), "trace": tb}), 500
 
 if __name__ == "__main__":
-    # local dev only
-    port = int(os.environ.get("PORT", 5001))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    app.run(host="0.0.0.0", port=5001, debug=True)
