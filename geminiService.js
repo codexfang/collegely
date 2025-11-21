@@ -157,50 +157,67 @@ Format each section clearly (NAME, CONTACT, SUMMARY, EDUCATION, EXPERIENCE/PROJE
   }
 }
 
-// Scholarship finder
+// Scholarship finder (stronger version)
 export async function findScholarships(criteria) {
   const prompt = `
-You are a scholarship advisor. Provide 15 top national scholarships with NAME, DESCRIPTION, AMOUNT, REQUIREMENTS, LINK.
+You are a top scholarship advisor. Provide exactly 15 national scholarships for this student. Use the exact format below:
+
+SCHOLARSHIP N:
+NAME: ...
+DESCRIPTION: ...
+AMOUNT: ...
+REQUIREMENTS: ...
+LINK: ...
 
 Student Profile:
 - Low Income: ${criteria.lowIncome ? "Yes" : "No"}
-- First Generation: ${criteria.firstGen ? "Yes" : "No"}
-- Ethnicity: ${criteria.ethnicity || "Not specified"}
-- Gender: ${criteria.gender || "Not specified"}
-- Major: ${criteria.major || "Not specified"}
-- State: ${criteria.state || "Not specified"}
-- Minimum GPA: ${criteria.minGPA || "Not specified"}
+- First Generation College Student: ${criteria.firstGen ? "Yes" : "No"}
 - Volunteer Experience: ${criteria.volunteer ? "Yes" : "No"}
 - Veteran/Military: ${criteria.veteran ? "Yes" : "No"}
 - Disability: ${criteria.disability ? "Yes" : "No"}
+- Ethnicity: ${criteria.ethnicity || "Not specified"}
+- Gender: ${criteria.gender || "Not specified"}
+- Intended Major: ${criteria.major || "Not specified"}
+- State: ${criteria.state || "Not specified"}
+- Minimum GPA: ${criteria.minGPA || "Not specified"}
 
-Format each scholarship clearly.
+Ensure the format is machine-readable so your code can reliably parse it.
 `;
 
   try {
     const result = await callGemini(prompt);
+    console.debug("findScholarships - raw response:", result);
+
+    // Split by SCHOLARSHIP N blocks
     const blocks = result.split(/SCHOLARSHIP\s*\d+:/i).filter(Boolean);
-    return blocks.map(block => ({
-      name: block.match(/NAME:\s*(.*?)(?:\n|$)/s)?.[1]?.trim() || "Unknown",
+    const scholarships = blocks.map(block => ({
+      name: block.match(/NAME:\s*(.*?)(?:\n|$)/s)?.[1]?.trim() || null,
       description: block.match(/DESCRIPTION:\s*(.*?)(?:\n|$)/s)?.[1]?.trim() || "N/A",
       amount: block.match(/AMOUNT:\s*(.*?)(?:\n|$)/s)?.[1]?.trim() || "Varies",
       requirements: block.match(/REQUIREMENTS:\s*(.*?)(?:\n|$)/s)?.[1]?.trim() || "Check website",
       link: block.match(/LINK:\s*(.*?)(?:\n|$)/s)?.[1]?.trim() || "#"
-    })).filter(s => s.name) || [{
-      name: "General Merit Scholarship",
-      description: "Academic achievement recognition",
-      amount: "$1,000 - $2,500",
-      requirements: "Strong GPA",
-      link: "#"
-    }];
+    })).filter(s => s.name);
+
+    // Ensure exactly 15 scholarships
+    while (scholarships.length < 15) {
+      scholarships.push({
+        name: "General Merit Scholarship",
+        description: "Academic achievement recognition",
+        amount: "$1,000 - $2,500",
+        requirements: "Strong GPA and academic standing",
+        link: "#"
+      });
+    }
+
+    return scholarships;
   } catch (error) {
     console.error("Scholarship fetching error:", error);
-    return [{
-      name: "Error fetching scholarships",
-      description: "Try again later",
+    return Array.from({ length: 15 }, (_, i) => ({
+      name: `Error fetching scholarship ${i + 1}`,
+      description: "Please try again later",
       amount: "N/A",
       requirements: "N/A",
       link: "#"
-    }];
+    }));
   }
 }
