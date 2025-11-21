@@ -1,0 +1,482 @@
+[
+  {
+    "name": "Starbucks College Achievement Plan",
+    "amount": "100% tuition coverage",
+    "deadline": "Rolling",
+    "eligibility": "Part- and full-time U.S. Starbucks employees (partners)",
+    "overview": "In partnership with Arizona State University Online, Starbucks covers 100% tuition for eligible employees earning a first-time bachelor’s degree. Over 80 degree programs available.",
+    "link": "https://www.starbucks.com/careers/college-plan"
+  },
+  {
+    "name": "Coca-Cola Scholars Program",
+    "amount": "$20,000",
+    "deadline": "See provider’s site",
+    "eligibility": "U.S. high school seniors with leadership, service, and academic excellence",
+    "overview": "A prestigious achievement-based scholarship recognizing students making a significant impact on their schools and communities.",
+    "link": "https://www.coca-colascholarsfoundation.org/"
+  },
+  {
+    "name": "Taco Bell Live Más Scholarship",
+    "amount": "Up to $25,000",
+    "deadline": "Opens in fall; no essay required",
+    "eligibility": "U.S. residents aged 16–26, not based on GPA or test scores",
+    "overview": "Submit a 2-minute video about your passion for a chance to win. Creativity encouraged—grades not required.",
+    "link": "https://www.tacobellfoundation.org/live-mas-scholarship"
+  },
+  {
+    "name": "BMW Engineering Scholarship",
+    "amount": "$1,500",
+    "deadline": "See provider’s website",
+    "eligibility": "High school seniors planning to study engineering",
+    "overview": "Offered in partnership with SAE International, this award supports future engineers who demonstrate passion for innovation and technology.",
+    "link": "https://www.sae.org/participate/student-programs/scholarships"
+  },
+  {
+    "name": "HireAHelper Skilled Trade & Tech Scholarship",
+    "amount": "$2,000",
+    "deadline": "Quarterly",
+    "eligibility": "Students entering skilled trade fields",
+    "overview": "Designed to support students pursuing in-demand trade and tech careers.",
+    "link": "https://www.hireahelper.com/scholarship"
+  },
+  {
+    "name": "Dr. Pepper Tuition Giveaway",
+    "amount": "Up to $100,000",
+    "deadline": "Varies",
+    "eligibility": "U.S. students ages 18–24",
+    "overview": "Create a short video for the chance to win major tuition money—and possibly compete on the field!",
+    "link": "https://www.drpeppertuition.com/"
+  },
+  {
+    "name": "Doodle 4 Google",
+    "amount": "$30,000 scholarship + $50,000 school tech grant",
+    "deadline": "See website",
+    "eligibility": "K–12 students",
+    "overview": "Submit a custom Google Doodle and win big for both yourself and your school.",
+    "link": "https://www.google.com/doodle4google/"
+  },
+  {
+    "name": "Duck® Brand “Stuck at Prom” Contest",
+    "amount": "$10,000 per grand prize",
+    "deadline": "Typically spring",
+    "eligibility": "High school students in the U.S. and Canada",
+    "overview": "Make and wear prom attire made of duct tape for a shot at scholarship money.",
+    "link": "https://prom.duckbrand.com/"
+  },
+  {
+    "name": "Blacks at Microsoft Scholarship",
+    "amount": "$20,000",
+    "deadline": "Typically March",
+    "eligibility": "Black high school seniors pursuing degrees in STEM or business",
+    "overview": "Encourages diversity in tech through financial support and mentorship.",
+    "link": "https://www.microsoft.com/en-us/diversity/programs/black-at-microsoft-scholarships"
+  },
+  {
+    "name": "McDonald’s® HACER® National Scholarship",
+    "amount": "Varies (up to $100,000 across four years)",
+    "deadline": "Typically February",
+    "eligibility": "High school seniors with Hispanic heritage; academic achievement, financial need, community involvement",
+    "overview": "Awarded to students who demonstrate leadership, strong academic performance, and a commitment to giving back.",
+    "link": "https://www.mcdonalds.com/us/en-us/community/hacer-scholarship.html"
+  },
+  {
+    "name": "Dell Scholars Program",
+    "amount": "$20,000 + support services",
+    "deadline": "Usually opens in October",
+    "eligibility": "Low-income, college-bound students; GPA of 2.4+ and participation in a college readiness program",
+    "overview": "More than just financial aid—the program offers mentoring, textbook credits, and a laptop to help students succeed.",
+    "link": "https://www.dellscholars.org/"
+  },
+  {
+    "name": "GE-Reagan Foundation Scholarship Program",
+    "amount": "Up to $40,000 total per student",
+    "deadline": "Opens in October, closes January",
+    "eligibility": "High school seniors with strong leadership, integrity, and citizenship",
+    "overview": "Renewable $10,000/year scholarship for students who embody President Reagan’s legacy of service and excellence.",
+    "link": "https://www.reaganfoundation.org/education/scholarship-programs/"
+  },
+  {
+    "name": "Shell Incentive Fund Scholarship",
+    "amount": "$2,500",
+    "deadline": "Typically March",
+    "eligibility": "High school seniors planning to study engineering or geosciences at select institutions",
+    "overview": "Designed to attract diverse talent to STEM fields related to the energy industry.",
+    "link": "https://www.shell.us/careers/students-and-graduates/scholarships.html"
+  },
+  {
+    "name": "Ford Motor Company Fund",
+    "amount": "Varies",
+    "deadline": "See website for programs and partners",
+    "eligibility": "Typically tied to nonprofit or school-partnered programs",
+    "overview": "Offers multiple scholarship opportunities through educational partners as part of its $16M+ annual education investment.",
+    "link": "https://corporate.ford.com/education.html"
+  },
+  {
+    "name": "Discover Student Loans Scholarship Award Sweepstakes",
+    "amount": "$5,000 (12 winners annually)",
+    "deadline": "Rolling",
+    "eligibility": "High school or college students (or their parents)",
+    "overview": "No essay required—just enter to win. Also offers helpful college planning tools.",
+    "link": "https://www.discover.com/student-loans/scholarship/"
+  },
+  {
+    "name": "Huntington’s College Scholarship Sweepstakes",
+    "amount": "$4,000",
+    "deadline": "Varies",
+    "eligibility": "College-bound students",
+    "overview": "A simple entry form gives students a chance to win tuition funds with minimal effort.",
+    "link": "https://www.huntington.com/Personal/Banking/StudentScholarships"
+  },
+  {
+    "name": "Google Student Veterans of America Scholarship",
+    "amount": "$10,000",
+    "deadline": "Usually opens each fall",
+    "eligibility": "U.S. military veterans pursuing degrees in computer science or a related field",
+    "overview": "A collaboration between Google and SVA to support the next generation of veteran tech professionals.",
+    "link": "https://sva.org/scholarships/"
+  },
+  {
+    "name": "$2,000 Sallie Scholarship",
+    "amount": "$2,000",
+    "deadline": "Monthly (last day of each month)",
+    "eligibility": "U.S. residents enrolling in college within the next 12 months",
+    "overview": "Sallie helps students plan and pay for college. This monthly no-essay sweepstakes takes less than 2 minutes to enter and offers 12 chances per year to win.",
+    "link": "https://www.salliemae.com/college-planning/college-scholarships/"
+  },
+  {
+    "name": "$5,000 Discover Student Loans Scholarship",
+    "amount": "$5,000",
+    "deadline": "Rolling (12 winners selected throughout the year)",
+    "eligibility": "U.S. high school or college students (or their parents)",
+    "overview": "Sign up for helpful college tips from Discover and automatically enter to win a $5,000 scholarship. No essay, no fuss.",
+    "link": "https://www.discover.com/student-loans/scholarship/"
+  },
+  {
+    "name": "College Board “BigFuture” Scholarships",
+    "amount": "$500–$40,000",
+    "deadline": "Monthly actions = monthly drawings",
+    "eligibility": "U.S. high school juniors and seniors",
+    "overview": "Earn scholarship entries by completing simple college planning steps, like building a college list or submitting the FAFSA. More actions = more chances to win.",
+    "link": "https://bigfuture.collegeboard.org/scholarships"
+  },
+  {
+    "name": "Niche “No Essay” Scholarship",
+    "amount": "$2,000",
+    "deadline": "Monthly",
+    "eligibility": "Anyone planning to attend college",
+    "overview": "Niche runs a straightforward $2,000 scholarship sweepstakes that takes just a minute to enter. Winners selected randomly each month.",
+    "link": "https://www.niche.com/colleges/scholarships/no-essay/"
+  },
+  {
+    "name": "Bold.org “No-Essay” Scholarships",
+    "amount": "Varies (many $500–$1,000)",
+    "deadline": "Ongoing",
+    "eligibility": "Varies by listing",
+    "overview": "Bold.org offers dozens of no-essay scholarships you can apply for in minutes. Create a free profile and apply to as many as you like.",
+    "link": "https://bold.org/scholarships/"
+  },
+  {
+    "name": "2K Annual Drug Rehab USA – Mental Health Scholarship",
+    "amount": "$2,000",
+    "deadline": "December 1",
+    "eligibility": "Students with a passion for mental health advocacy",
+    "overview": "Submit an essay, video, or artwork sharing your passion for mental health and the difference you hope to make.",
+    "link": "https://drugrehabusa.org/scholarship/"
+  },
+  {
+    "name": "KC R. Sandidge Photography Scholarship",
+    "amount": "$1,000",
+    "deadline": "May 1",
+    "eligibility": "High school seniors",
+    "overview": "Submit 3–5 portfolio images on a selected theme. Open to aspiring student photographers.",
+    "link": "https://www.kcrsandidgephotography.com/scholarship"
+  },
+  {
+    "name": "Lewis Hollins Memorial Art Scholarship",
+    "amount": "$1,000",
+    "deadline": "April 30",
+    "eligibility": "Students pursuing art",
+    "overview": "For students pursuing art—especially watercolor, LGBTQ+, and underrepresented creatives encouraged to apply. Submit a sample of your work.",
+    "link": "https://www.lewishollinsmemorial.org/scholarship"
+  },
+  {
+    "name": "Doan Foundation Arts Scholarship",
+    "amount": "4 awards from $500–$1,000",
+    "deadline": "February",
+    "eligibility": "Low-income high school seniors in California",
+    "overview": "Supports students with a passion for the arts. Optional art submission encouraged.",
+    "link": "https://www.doanfoundation.org/scholarships"
+  },
+  {
+    "name": "Windward Spirit Scholarship",
+    "amount": "$3,000 (16 awards)",
+    "deadline": "April",
+    "eligibility": "Creative students",
+    "overview": "Reflect on “Ode to Millennials–Gen Z” and respond through a creative written or artistic submission.",
+    "link": "https://www.windwardscholarships.org/"
+  },
+  {
+    "name": "GoSkills Scholarship",
+    "amount": "$2,000",
+    "deadline": "March & September",
+    "eligibility": "Women pursuing entrepreneurial goals",
+    "overview": "Submit a short business plan and respond to open-ended questions about your ambitions.",
+    "link": "https://www.goskills.com/scholarship"
+  },
+  {
+    "name": "National YoungArts Foundation",
+    "amount": "Up to $10,000",
+    "deadline": "See website",
+    "eligibility": "U.S. students ages 15–18",
+    "overview": "Recognizes excellence in visual, literary, and performing arts through portfolio or audition-based entries.",
+    "link": "https://www.youngarts.org/"
+  },
+  {
+    "name": "Andrew Flusche Scholarship Contest",
+    "amount": "$500",
+    "deadline": "April",
+    "eligibility": "High school seniors and college students",
+    "overview": "Submit a short video promoting safe and courteous driving. Open to high school seniors and college students.",
+    "link": "https://www.andrewflusche.com/scholarship/"
+  },
+  {
+    "name": "10x Digital Marketing Scholarship",
+    "amount": "$2,000",
+    "deadline": "June 1",
+    "eligibility": "High school seniors or college students with a passion for digital marketing and community involvement",
+    "overview": "Share how you’ve used digital platforms to promote good causes. Open to students pursuing marketing, communications, or related fields.",
+    "link": "https://10xdigitalinc.com/scholarship/"
+  },
+  {
+    "name": "The Gloria Barron Prize for Young Heroes",
+    "amount": "$10,000",
+    "deadline": "Typically April",
+    "eligibility": "Ages 8–18",
+    "overview": "Honors inspiring young leaders who’ve made a positive difference through service projects, environmental efforts, and community advocacy.",
+    "link": "https://barronprize.org/"
+  },
+  {
+    "name": "Don’t Text and Drive Scholarship",
+    "amount": "$1,000",
+    "deadline": "September 30",
+    "eligibility": "Students committed to promoting safe driving",
+    "overview": "Write a short statement about the risks of texting and driving—and your commitment to preventing it.",
+    "link": "https://www.donttextanddrive.com/scholarship/"
+  },
+  {
+    "name": "Becca’s Closet Spirit of Generosity Scholarship",
+    "amount": "$1,000",
+    "deadline": "Typically spring",
+    "eligibility": "High school seniors with outstanding community service",
+    "overview": "Recognizes students who demonstrate the generosity, kindness, and volunteerism that defined Becca’s legacy.",
+    "link": "https://www.beccascloset.org/scholarship"
+  },
+  {
+    "name": "A Voice for Animals Essay Contest Scholarship",
+    "amount": "$1,000",
+    "deadline": "July 1",
+    "eligibility": "Students who advocate for animal welfare",
+    "overview": "Write about the importance of feline care or animal rescue and how it ties into your personal or academic goals.",
+    "link": "https://www.nosweat.org/scholarships/voice-for-animals/"
+  },
+  {
+    "name": "Cirkled In “No Sweat” Scholarship",
+    "amount": "$2,500",
+    "deadline": "Quarterly",
+    "eligibility": "Middle and high school students",
+    "overview": "No essay required—just create a Cirkled In profile and highlight your extracurricular and volunteer experience.",
+    "link": "https://www.cirkled.in/scholarship"
+  },
+  {
+    "name": "Courage to Grow Scholarship",
+    "amount": "$500",
+    "deadline": "Monthly",
+    "eligibility": "High school juniors and seniors or current college students with a GPA of 2.5+",
+    "overview": "Write a short essay on why you deserve this scholarship. Aimed at students with financial need and a drive to succeed.",
+    "link": "https://www.couragetogrowscholarship.com/"
+  },
+  {
+    "name": "Hispanic Scholarship Fund",
+    "amount": "$500 to $5,000",
+    "deadline": "Usually February",
+    "eligibility": "Students of Hispanic heritage with a GPA of 3.0+ (high school) or 2.5+ (college)",
+    "overview": "One of the largest and most well-known scholarships for Latino students. Open to high school seniors, undergrads, and grad students.",
+    "link": "https://www.hsf.net/"
+  },
+  {
+    "name": "The Gates Scholarship",
+    "amount": "Full cost of attendance (after other aid)",
+    "deadline": "Typically September",
+    "eligibility": "High-achieving, Pell-eligible, minority high school seniors",
+    "overview": "Covers full unmet need for outstanding minority students pursuing a four-year degree. Highly competitive.",
+    "link": "https://www.thegatesscholarship.org/scholarship"
+  },
+  {
+    "name": "Ron Brown Scholar Program",
+    "amount": "$40,000 ($10,000/year)",
+    "deadline": "January 9",
+    "eligibility": "Black/African American high school seniors who demonstrate academic excellence, leadership, and community service",
+    "overview": "One of the most prestigious scholarships for Black students in the U.S., supporting both financial and leadership development.",
+    "link": "https://www.ronbrown.org/"
+  },
+  {
+    "name": "UNCF Scholarships",
+    "amount": "Varies",
+    "deadline": "Varies by program",
+    "eligibility": "Primarily for African American students; must attend a participating college or university",
+    "overview": "UNCF offers hundreds of scholarships to support Black students in a wide range of majors and career paths.",
+    "link": "https://uncf.org/scholarships"
+  },
+  {
+    "name": "We the Students Essay Contest",
+    "amount": "Up to $7,500",
+    "deadline": "May",
+    "eligibility": "U.S. high school students aged 14–19",
+    "overview": "Write an essay exploring constitutional principles and civic engagement. Prizes awarded to multiple winners.",
+    "link": "https://billofrightsinstitute.org/we-the-students-essay-contest"
+  },
+  {
+    "name": "John F. Kennedy Profile in Courage Essay Contest",
+    "amount": "Up to $10,000",
+    "deadline": "Typically January",
+    "eligibility": "U.S. high school students in grades 9–12",
+    "overview": "Submit an original essay describing an act of political courage by a U.S. elected official. Well-regarded and competitive.",
+    "link": "https://www.jfklibrary.org/learn/education/profile-in-courage-essay-contest"
+  },
+  {
+    "name": "Driver Education Initiative Award – “In the Driver’s Seat”",
+    "amount": "$10,000",
+    "deadline": "March 31, August 1, or November 30, 2025",
+    "eligibility": "High school or college students in the U.S., Canada, or abroad",
+    "overview": "Submit a 750+ word personal essay on safe driving. Judged for clarity, relevance, and personal insight.",
+    "link": "https://www.drivereducationinitiative.org/scholarship"
+  },
+  {
+    "name": "Unigo $10K Scholarship",
+    "amount": "$10,000",
+    "deadline": "December 31, 2025",
+    "eligibility": "U.S. students aged 14+ planning to attend a postsecondary institution",
+    "overview": "Write a short essay answering whether you’d rather be smart, funny, or rich—and why. Creativity counts!",
+    "link": "https://www.unigo.com/scholarships/our-scholarships/unigo-10k-scholarship"
+  },
+  {
+    "name": "NurseRecruiter.com Scholarship",
+    "amount": "$10,000",
+    "deadline": "Varies by semester (Spring, Summer, Fall)",
+    "eligibility": "Students accepted to or enrolled in an accredited nursing program",
+    "overview": "Submit an essay on why you chose nursing and how you want to make a difference in healthcare.",
+    "link": "https://www.nurserecruiter.com/scholarship"
+  },
+  {
+    "name": "Ed Bradley Scholarship",
+    "amount": "$10,000",
+    "deadline": "January 15, 2026",
+    "eligibility": "Undergraduate students of color pursuing careers in journalism",
+    "overview": "Requires a cover letter, essay, and 3–5 samples of your broadcast or digital reporting work.",
+    "link": "https://www.rtdna.org/ed-bradley-scholarship"
+  },
+  {
+    "name": "Children of Fallen Patriots Foundation Scholarship",
+    "amount": "Varies (up to full college funding)",
+    "deadline": "Varies",
+    "eligibility": "Children of U.S. service members who died in the line of duty",
+    "overview": "This foundation provides gap funding between other aid and the total cost of college for eligible children of fallen heroes.",
+    "link": "https://www.fallenpatriots.org/"
+  },
+  {
+    "name": "Freedom Alliance Scholarship Fund",
+    "amount": "Varies",
+    "deadline": "Varies",
+    "eligibility": "Children of U.S. military personnel who were killed or permanently disabled in service",
+    "overview": "Established to honor the bravery of service members and help their children access higher education.",
+    "link": "https://www.freedomalliance.org/scholarship"
+  },
+  {
+    "name": "ICMA-RC Public Employee Memorial Scholarship Fund",
+    "amount": "Varies",
+    "deadline": "Varies",
+    "eligibility": "Surviving children and spouses of local/state public employees who died in the line of duty",
+    "overview": "Open to children of firefighters, police officers, and other public service workers attending an accredited institution.",
+    "link": "https://www.icmarc.org/about-us/scholarship-program.html"
+  },
+  {
+    "name": "Marine Corps Scholarship Foundation",
+    "amount": "$2,500+",
+    "deadline": "Varies",
+    "eligibility": "Children of U.S. Marines and Navy Corpsmen with financial need",
+    "overview": "Supports students pursuing a post-secondary education, focusing on those with demonstrated financial need and academic promise.",
+    "link": "https://www.mcsf.org/"
+  },
+  {
+    "name": "Patriots Path Scholarship",
+    "amount": "$2,000 total (5 winners)",
+    "deadline": "May 1, 2026",
+    "eligibility": "High school seniors in JROTC or undergraduates in ROTC with a 3.0+ GPA",
+    "overview": "Designed for students preparing for a military career. Applicants must explain their goals and service motivations.",
+    "link": "https://www.patriotspath.org/scholarship"
+  },
+  {
+    "name": "Billy Welu Scholarship",
+    "amount": "$1,000",
+    "deadline": "July 11, 2025",
+    "eligibility": "College students who are active in bowling and maintain at least a 2.5 GPA",
+    "overview": "Named after a professional bowler and commentator, this scholarship honors students who show sportsmanship and academic achievement.",
+    "link": "https://www.bowl.com/scholarships/"
+  },
+  {
+    "name": "Michael Moody Fitness Scholarship",
+    "amount": "$1,500",
+    "deadline": "August 1, 2025",
+    "eligibility": "U.S. high school seniors, undergraduates, or graduate students pursuing health, wellness, or fitness careers",
+    "overview": "For students passionate about promoting physical health and fitness—whether through athletics, education, or leadership.",
+    "link": "https://www.michaelmoodyfitness.com/scholarship"
+  },
+  {
+    "name": "Women’s Western Golf Foundation Scholarship",
+    "amount": "$10,000",
+    "deadline": "Varies",
+    "eligibility": "Female high school seniors who have played competitive golf",
+    "overview": "Based on academic achievement, excellence of character, and involvement in golf. Financial need is also considered.",
+    "link": "https://www.wwga.org/scholarships"
+  },
+  {
+    "name": "Francis Ouimet Scholarship",
+    "amount": "$10,000",
+    "deadline": "January 12, 2026",
+    "eligibility": "Massachusetts students with two+ years of golf service (as caddies or in course operations)",
+    "overview": "Renewable for four years. Selection is based on academics, leadership, and golf involvement. Includes three required essays.",
+    "link": "https://www.ouimet.org/"
+  },
+  {
+    "name": "Rosalind P. Walter College Scholarship",
+    "amount": "$10,000",
+    "deadline": "May 15, 2026",
+    "eligibility": "Students active in National Junior Tennis and Learning (NJTL)",
+    "overview": "For students active in NJTL. Awarded over four years. Requires academic achievement, community service, and recommendations including one from a tennis mentor.",
+    "link": "https://www.usta.org/en/home/play/player-development/njtl/njtl-scholarships.html"
+  },
+  {
+    "name": "Dwight F. Davis Memorial Scholarship",
+    "amount": "$10,000",
+    "deadline": "May 15, 2026",
+    "eligibility": "NJTL participants",
+    "overview": "Honors the legacy of the Davis Cup’s founder. Open to NJTL participants who demonstrate strong academics, community service, and leadership. Four-year award.",
+    "link": "https://www.usta.org/en/home/play/player-development/njtl/njtl-scholarships.html"
+  },
+  {
+    "name": "PGA WORKS John & Tamara Lundgren Scholars Program",
+    "amount": "$8,000",
+    "deadline": "February 6, 2026",
+    "eligibility": "Students pursuing PGA of America membership through PGA Golf Management programs",
+    "overview": "Supports students pursuing PGA of America membership through PGA Golf Management programs. Focus on diversity and intent to work in the golf industry. One international-interest award is available.",
+    "link": "https://www.pgareach.com/scholarships/"
+  },
+  {
+    "name": "USBC Chuck Hall Star of Tomorrow",
+    "amount": "$6,000",
+    "deadline": "December 1, 2025",
+    "eligibility": "Bowling scholarship for high school seniors or college students under age 20. Must be a USBC member.",
+    "overview": "Bowling scholarship for high school seniors or college students under age 20. Must be a USBC member. Judged on bowling performance, academics, and extracurricular involvement.",
+    "link": "https://www.bowl.com/scholarships/"
+  }
+]
