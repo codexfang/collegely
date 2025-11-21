@@ -7,9 +7,6 @@ import CollegeChatbot from './CollegeChatbot';
 import AdmissionsDataViewer from './AdmissionsDataViewer';
 import './App.css';
 
-// Import the logo from src root
-import logo from './CollegelyLogo.png'; // <-- use relative path to where the file actually is
-
 const tabs = [
   { id: 'admissions', label: 'Admissions Predictor' },
   { id: 'essay', label: 'Essay Analyzer' },
@@ -32,7 +29,7 @@ export default function App() {
         {/* Logo on the top left */}
         <div className="flex items-center">
           <img
-            src={logo}   // <-- use the imported variable
+            src="/CollegelyLogo.png"   // <-- reference directly from public folder
             alt="Collegely Logo"
             className="logo h-10 w-auto"
           />
