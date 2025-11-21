@@ -26,6 +26,7 @@ export default function App() {
   return (
     <div className="app-container">
       <header className="app-header flex justify-between items-center px-4 py-3">
+        {/* Logo on the top left */}
         <div className="flex items-center">
           <img
             src="/CollegelyLogo.png"
@@ -34,6 +35,7 @@ export default function App() {
           />
         </div>
 
+        {/* Tabs in the center */}
         <nav className="nav-tabs flex-grow flex justify-center gap-4">
           {tabs.map((tab) => (
             <button
@@ -45,6 +47,21 @@ export default function App() {
             </button>
           ))}
         </nav>
+
+        {/* Language selector on the top right */}
+        <div className="language-selector">
+          <select
+            className="language-select"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+          >
+            {languages.map((lang) => (
+              <option key={lang.code} value={lang.code}>
+                {lang.label}
+              </option>
+            ))}
+          </select>
+        </div>
       </header>
 
       <main className="main-content">
@@ -55,9 +72,7 @@ export default function App() {
         {activeTab === 'dataset' && <AdmissionsDataViewer language={language} />}
       </main>
 
-      <footer className="app-footer">
-        @ 2025 Collegely
-      </footer>
+      <footer className="app-footer">@ 2025 Collegely</footer>
 
       <CollegeChatbot />
     </div>
