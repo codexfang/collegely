@@ -7,6 +7,9 @@ import CollegeChatbot from './CollegeChatbot';
 import AdmissionsDataViewer from './AdmissionsDataViewer';
 import './App.css';
 
+// Import the logo from src root
+import logo from './CollegelyLogo.png'; // <-- use relative path to where the file actually is
+
 const tabs = [
   { id: 'admissions', label: 'Admissions Predictor' },
   { id: 'essay', label: 'Essay Analyzer' },
@@ -23,17 +26,17 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('admissions');
   const [language, setLanguage] = useState('en');
 
-return (
-  <div className="app-container">
-    <header className="app-header flex justify-between items-center px-4 py-3">
-      {/* Logo on the top left */}
-      <div className="flex items-center">
-        <img
-          src="/CollegelyLogo.png"  // <- directly reference public folder
-          alt="Collegely Logo"
-          className="logo h-10 w-auto"
-        />
-      </div>
+  return (
+    <div className="app-container">
+      <header className="app-header flex justify-between items-center px-4 py-3">
+        {/* Logo on the top left */}
+        <div className="flex items-center">
+          <img
+            src={logo}   // <-- use the imported variable
+            alt="Collegely Logo"
+            className="logo h-10 w-auto"
+          />
+        </div>
 
         {/* Tabs in the center */}
         <nav className="nav-tabs flex-grow flex justify-center gap-4">

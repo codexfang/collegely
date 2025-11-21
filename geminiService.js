@@ -100,50 +100,70 @@ FEEDBACK: [Detailed strengths, weaknesses, improvements, and actionable tips]
   }
 }
 
-// Resume generator with strong professional output
+// Resume generator with enhanced professional output
 export async function generateResumeContent(data) {
   const prompt = `
-You are a professional resume writer. Convert the following student info into a **polished, detailed, keyword-rich resume** suitable for college applications or internships.
+You are a professional resume writer. Create a **polished, highly detailed, professional resume** suitable for college applications or internships.
 
-Name: ${data.name}
-Email: ${data.email}
-Phone: ${data.phone}
-Education: ${data.education}
-Activities: ${data.activities.join("; ")}
-Additional Info: ${data.additionalInfo || "None"}
+Include all relevant sections with formatting and bullet points. Use action verbs, keywords, and concise descriptions. Prioritize achievements, leadership, and skills.
 
-Format:
-SUMMARY: [2-3 sentence professional summary]
-EDUCATION: [Detailed achievements and GPA]
-EXPERIENCE: [List experiences and roles]
-SKILLS: [Highlight leadership, technical, teamwork, and problem-solving skills]
-ACHIEVEMENTS: [Awards, honors, and recognitions]
+Student Info:
+- Name: ${data.name}
+- Email: ${data.email}
+- Phone: ${data.phone}
+- Education: ${data.education}
+- Activities: ${data.activities.join("; ")}
+- Additional Info: ${data.additionalInfo || "None"}
+
+Resume Format:
+------------------------------------------------
+NAME: [Full Name]
+CONTACT: [Email | Phone]
+SUMMARY:
+- Write a strong 3-4 sentence professional summary highlighting academics, leadership, and skills.
+EDUCATION:
+- Include GPA, honors, awards, relevant coursework.
+EXPERIENCE / PROJECTS:
+- List experiences, internships, volunteer work, projects with bullet points.
+SKILLS:
+- Include technical, leadership, and soft skills.
+ACHIEVEMENTS:
+- List awards, recognitions, and notable accomplishments.
+ADDITIONAL INFO:
+- Optional: certifications, languages, interests.
+
+Output each section clearly and make it **ready to copy into a resume template**.
 `;
 
   try {
     const result = await callGemini(prompt);
 
-    const summaryMatch = result.match(/SUMMARY:\s*\n?(.*?)(?=\n\s*EDUCATION:|$)/s);
-    const educationMatch = result.match(/EDUCATION:\s*\n?(.*?)(?=\n\s*EXPERIENCE:|$)/s);
-    const experienceMatch = result.match(/EXPERIENCE:\s*\n?(.*?)(?=\n\s*SKILLS:|$)/s);
-    const skillsMatch = result.match(/SKILLS:\s*\n?(.*?)(?=\n\s*ACHIEVEMENTS:|$)/s);
-    const achievementsMatch = result.match(/ACHIEVEMENTS:\s*\n?(.*?)$/s);
+    const extractSection = (label) => {
+      const match = result.match(new RegExp(`${label}:\\s*(.*?)\\n(?=[A-Z ]+:|$)`, 's'));
+      return match ? match[1].trim() : '';
+    };
 
     return {
-      summary: summaryMatch ? summaryMatch[1].trim() : "Motivated student with strong academic and extracurricular background.",
-      education: educationMatch ? educationMatch[1].trim() : data.education || "Education details missing",
-      experience: experienceMatch ? experienceMatch[1].trim() : data.activities.map(a => `• ${a}`).join("\n"),
-      skills: skillsMatch ? skillsMatch[1].trim() : "Leadership, Teamwork, Communication, Problem-solving",
-      achievements: achievementsMatch ? achievementsMatch[1].trim() : "Awards and recognitions"
+      name: extractSection('NAME') || data.name,
+      contact: extractSection('CONTACT') || `${data.email} | ${data.phone}`,
+      summary: extractSection('SUMMARY') || "Motivated student with strong academic and extracurricular background.",
+      education: extractSection('EDUCATION') || data.education || "Education details missing",
+      experience: extractSection('EXPERIENCE / PROJECTS') || data.activities.map(a => `• ${a}`).join("\n"),
+      skills: extractSection('SKILLS') || "Leadership, Teamwork, Communication, Problem-solving",
+      achievements: extractSection('ACHIEVEMENTS') || "Awards and recognitions",
+      additionalInfo: extractSection('ADDITIONAL INFO') || data.additionalInfo || "None"
     };
   } catch (error) {
     console.error("Resume generation error:", error);
     return {
-      summary: `Motivated student with experience in ${data.activities[0] || "various activities"}.`,
+      name: data.name,
+      contact: `${data.email} | ${data.phone}`,
+      summary: "Motivated student with strong academic and extracurricular background.",
       education: data.education || "Education in progress",
       experience: data.activities.map(a => `• ${a}`).join("\n"),
       skills: "Leadership, Teamwork, Communication, Problem-solving",
-      achievements: "Awards and recognitions"
+      achievements: "Awards and recognitions",
+      additionalInfo: data.additionalInfo || "None"
     };
   }
 }
