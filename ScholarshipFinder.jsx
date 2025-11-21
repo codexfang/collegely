@@ -25,7 +25,7 @@ const translations = {
     'Unnamed Scholarship': '未命名奖学金',
     'Description:': '描述：',
     'Amount:': '金额：',
-    'Requirements:': '要求：', 
+    'Requirements:': '要求：',
     'Apply Now': '立即申请',
   }
 };
@@ -63,10 +63,16 @@ export default function ScholarshipFinder({ language = 'en' }) {
 
     try {
       const scholarshipResults = await findScholarships(criteria);
-      setResults(scholarshipResults);
+      // Map overview → description, eligibility → requirements
+      const mappedResults = scholarshipResults.map(sch => ({
+        ...sch,
+        description: sch.overview,
+        requirements: sch.eligibility
+      }));
+      setResults(mappedResults);
     } catch {
-      setResults([{ 
-        name: 'Error fetching scholarships', 
+      setResults([{
+        name: 'Error fetching scholarships',
         description: 'Please try again later.',
         amount: 'N/A',
         requirements: 'N/A'
