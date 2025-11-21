@@ -3,7 +3,7 @@
 
 import scholarships from './scholarships.json';
 
-const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+const BASE_URL = import.meta.env.VITE_BACKEND_URL || "https://collegely-backend.onrender.com";
 
 // -----------------------
 // Generic Gemini API call
