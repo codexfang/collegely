@@ -176,20 +176,29 @@ export function findScholarships(criteria) {
   const state = (criteria.state || "").toLowerCase();
 
   const filtered = scholarships.filter(sch => {
+    const tags = (sch.tags || []).map(t => t.toLowerCase());
     const eligibility = (sch.eligibility || "").toLowerCase();
-    if (criteria.lowIncome && !eligibility.includes("low-income")) return false;
-    if (criteria.firstGen && !eligibility.includes("first-generation")) return false;
-    if (criteria.volunteer && !eligibility.includes("volunteer")) return false;
-    if (criteria.veteran && !eligibility.includes("veteran")) return false;
-    if (criteria.disability && !eligibility.includes("disability")) return false;
-    if (gender && !eligibility.includes(gender)) return false;
-    if (ethnicity && !eligibility.includes(ethnicity)) return false;
-    if (major && !eligibility.includes(major)) return false;
-    if (state && !eligibility.includes(state)) return false;
+
+    // Check boolean flags against tags
+    if (criteria.lowIncome && !tags.includes("low-income")) return false;
+    if (criteria.firstGen && !tags.includes("first-gen")) return false;
+    if (criteria.volunteer && !tags.includes("volunteer")) return false;
+    if (criteria.veteran && !tags.includes("veteran")) return false;
+    if (criteria.disability && !tags.includes("disability")) return false;
+
+    // Check filters against tags OR eligibility string (fallback)
+    if (gender && !tags.includes(gender) && !eligibility.includes(gender)) return false;
+    if (ethnicity && !tags.includes(ethnicity) && !eligibility.includes(ethnicity)) return false;
+    if (major && !tags.includes(major) && !eligibility.includes(major)) return false;
+    if (state && !tags.includes(state) && !eligibility.includes(state)) return false;
+
+    // Check GPA
     if (sch.minGPA && minGPA < sch.minGPA) return false;
+
     return true;
   });
 
+  // Return up to 15 results; fill with general scholarships if fewer
   const results = filtered.slice(0, 15);
   while (results.length < 15) {
     results.push({
