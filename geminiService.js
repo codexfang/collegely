@@ -23,22 +23,22 @@ export async function callGemini(prompt) {
   }
 }
 
-// Predict college admissions with percentage
+// Predict college admissions with detailed analysis
 export async function predictAdmissions(formData) {
   const prompt = `
-As a college admissions expert with access to comprehensive admission data, analyze a student's admission chances for ${formData.college}.
+You are a top college admissions expert with access to comprehensive historical admission data.
+
+Analyze this student's chances for ${formData.college} with extreme detail. Include academic competitiveness, extracurriculars impact, and personalized suggestions.
 
 Student Profile:
 - GPA: ${formData.gpa}
 - SAT Score: ${formData.sat}
 - Extracurriculars: ${formData.extracurriculars || 'Not specified'}
 
-Based on historical admission data, current admission trends, and the competitiveness of ${formData.college}, provide a realistic assessment.
-
-Format:
-CHANCE: [Specific percentage like "45%"]
-EXPLANATION: [2-3 sentence explanation]
-RECOMMENDATIONS: [3-4 actionable tips]
+Format your response as:
+CHANCE: [percentage like 45%]
+EXPLANATION: [3-4 sentences analyzing academic and extracurricular strength]
+RECOMMENDATIONS: [5 actionable tips for improving chances]
 `;
 
   try {
@@ -51,7 +51,9 @@ RECOMMENDATIONS: [3-4 actionable tips]
     return {
       chance: chanceMatch ? chanceMatch[1] : "50%",
       explanation: explanationMatch ? explanationMatch[1].trim() : result,
-      recommendations: recommendationsMatch ? recommendationsMatch[1].trim() : "Focus on strengthening your academic profile and extracurricular activities."
+      recommendations: recommendationsMatch
+        ? recommendationsMatch[1].trim()
+        : "Strengthen academics, highlight leadership and achievements, and craft compelling essays."
     };
   } catch (error) {
     return {
@@ -62,16 +64,22 @@ RECOMMENDATIONS: [3-4 actionable tips]
   }
 }
 
-// Analyze essay
+// Essay analysis with deep insight
 export async function analyzeEssay(essayText) {
   const prompt = `
-As a college admissions essay expert, analyze this college application essay and provide constructive feedback.
+You are an expert college admissions essay reviewer. Analyze this essay in detail. Focus on:
 
-Essay: "${essayText}"
+- Clarity, flow, and structure
+- Unique personal voice
+- Demonstration of character and achievements
+- Grammar and syntax
+- Suggestions for improvement
+
+Essay: """${essayText}"""
 
 Format:
 SCORE: [1-10]
-FEEDBACK: [Detailed feedback covering strengths, weaknesses, suggestions]
+FEEDBACK: [Detailed strengths, weaknesses, improvements, and actionable tips]
 `;
 
   try {
@@ -92,10 +100,10 @@ FEEDBACK: [Detailed feedback covering strengths, weaknesses, suggestions]
   }
 }
 
-// Generate resume content
+// Resume generator with strong professional output
 export async function generateResumeContent(data) {
   const prompt = `
-You are a professional resume writer. Transform this student's info into polished resume content.
+You are a professional resume writer. Convert the following student info into a **polished, detailed, keyword-rich resume** suitable for college applications or internships.
 
 Name: ${data.name}
 Email: ${data.email}
@@ -105,11 +113,11 @@ Activities: ${data.activities.join("; ")}
 Additional Info: ${data.additionalInfo || "None"}
 
 Format:
-SUMMARY:
-EDUCATION:
-EXPERIENCE:
-SKILLS:
-ACHIEVEMENTS:
+SUMMARY: [2-3 sentence professional summary]
+EDUCATION: [Detailed achievements and GPA]
+EXPERIENCE: [List experiences and roles]
+SKILLS: [Highlight leadership, technical, teamwork, and problem-solving skills]
+ACHIEVEMENTS: [Awards, honors, and recognitions]
 `;
 
   try {
@@ -122,11 +130,11 @@ ACHIEVEMENTS:
     const achievementsMatch = result.match(/ACHIEVEMENTS:\s*\n?(.*?)$/s);
 
     return {
-      summary: summaryMatch ? summaryMatch[1].trim() : "Motivated student with strong academic and extracurricular experience.",
+      summary: summaryMatch ? summaryMatch[1].trim() : "Motivated student with strong academic and extracurricular background.",
       education: educationMatch ? educationMatch[1].trim() : data.education || "Education details missing",
       experience: experienceMatch ? experienceMatch[1].trim() : data.activities.map(a => `• ${a}`).join("\n"),
-      skills: skillsMatch ? skillsMatch[1].trim() : "Communication, Leadership, Teamwork, Problem-solving",
-      achievements: achievementsMatch ? achievementsMatch[1].trim() : "Academic and extracurricular achievements"
+      skills: skillsMatch ? skillsMatch[1].trim() : "Leadership, Teamwork, Communication, Problem-solving",
+      achievements: achievementsMatch ? achievementsMatch[1].trim() : "Awards and recognitions"
     };
   } catch (error) {
     console.error("Resume generation error:", error);
@@ -134,17 +142,18 @@ ACHIEVEMENTS:
       summary: `Motivated student with experience in ${data.activities[0] || "various activities"}.`,
       education: data.education || "Education in progress",
       experience: data.activities.map(a => `• ${a}`).join("\n"),
-      skills: "Communication, Leadership, Teamwork, Problem-solving",
-      achievements: "Academic and extracurricular achievements"
+      skills: "Leadership, Teamwork, Communication, Problem-solving",
+      achievements: "Awards and recognitions"
     };
   }
 }
 
-// Find scholarships
+// Scholarship finder with top national scholarships and robust parsing
 export async function findScholarships(criteria) {
   const prompt = `
-As a scholarship advisor, find scholarships for a student with this profile:
+You are a top scholarship advisor. Provide a **list of 15 top national scholarships** for a student with this profile. Include NAME, DESCRIPTION, AMOUNT, REQUIREMENTS, and LINK.
 
+Student Profile:
 - Low Income: ${criteria.lowIncome ? "Yes" : "No"}
 - First Generation: ${criteria.firstGen ? "Yes" : "No"}
 - Ethnicity: ${criteria.ethnicity || "Not specified"}
@@ -156,40 +165,49 @@ As a scholarship advisor, find scholarships for a student with this profile:
 - Veteran/Military: ${criteria.veteran ? "Yes" : "No"}
 - Disability: ${criteria.disability ? "Yes" : "No"}
 
-Provide 5-7 scholarships with NAME, DESCRIPTION, AMOUNT, REQUIREMENTS, LINK.
+Format each scholarship as:
+SCHOLARSHIP 1:
+NAME: ...
+DESCRIPTION: ...
+AMOUNT: ...
+REQUIREMENTS: ...
+LINK: ...
 `;
 
   try {
     const result = await callGemini(prompt);
 
-    const blocks = result.split(/SCHOLARSHIP \d+:/);
+    const blocks = result.split(/SCHOLARSHIP\s*\d+:/i).filter(Boolean);
     const scholarships = [];
 
-    for (let i = 1; i < blocks.length; i++) {
-      const block = blocks[i];
-      const name = block.match(/NAME:\s*(.*?)(?=DESCRIPTION:|$)/s)?.[1]?.trim();
-      if (name) {
-        scholarships.push({
-          name,
-          description: block.match(/DESCRIPTION:\s*(.*?)(?=AMOUNT:|$)/s)?.[1]?.trim() || "Scholarship details",
-          amount: block.match(/AMOUNT:\s*(.*?)(?=REQUIREMENTS:|$)/s)?.[1]?.trim() || "Amount varies",
-          requirements: block.match(/REQUIREMENTS:\s*(.*?)(?=SCHOLARSHIP|$)/s)?.[1]?.trim() || "See details"
-        });
-      }
+    for (let block of blocks) {
+      const name = block.match(/NAME:\s*(.*?)(?:\n|$)/s)?.[1]?.trim();
+      if (!name) continue;
+
+      scholarships.push({
+        name,
+        description: block.match(/DESCRIPTION:\s*(.*?)(?:\n|$)/s)?.[1]?.trim() || "Details not available",
+        amount: block.match(/AMOUNT:\s*(.*?)(?:\n|$)/s)?.[1]?.trim() || "Varies",
+        requirements: block.match(/REQUIREMENTS:\s*(.*?)(?:\n|$)/s)?.[1]?.trim() || "Check website",
+        link: block.match(/LINK:\s*(.*?)(?:\n|$)/s)?.[1]?.trim() || "#"
+      });
     }
 
     return scholarships.length ? scholarships : [{
       name: "General Merit Scholarship",
       description: "Academic achievement recognition",
       amount: "$1,000 - $2,500",
-      requirements: "Strong GPA and academic standing"
+      requirements: "Strong GPA and academic standing",
+      link: "#"
     }];
   } catch (error) {
+    console.error("Scholarship fetching error:", error);
     return [{
       name: "Error fetching scholarships",
       description: "Please try again later",
       amount: "N/A",
-      requirements: "N/A"
+      requirements: "N/A",
+      link: "#"
     }];
   }
 }
