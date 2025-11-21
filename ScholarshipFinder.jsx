@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { findScholarships } from './geminiService';
 import MarkdownRenderer from './MarkdownRenderer';
 
 const translations = {
@@ -56,30 +55,21 @@ export default function ScholarshipFinder({ language = 'en' }) {
     }));
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
     setLoading(true);
     setResults(null);
 
-    try {
-      const scholarshipResults = await findScholarships(criteria);
-      // Map overview → description, eligibility → requirements
-      const mappedResults = scholarshipResults.map(sch => ({
-        ...sch,
-        description: sch.overview,
-        requirements: sch.eligibility
-      }));
-      setResults(mappedResults);
-    } catch {
-      setResults([{
-        name: 'Error fetching scholarships',
-        description: 'Please try again later.',
-        amount: 'N/A',
-        requirements: 'N/A'
-      }]);
-    } finally {
-      setLoading(false);
-    }
+    // QUICK OVERRIDE: Show "under improvement" message
+    setResults([{
+      name: 'Scholarship Finder (Under Improvement)',
+      description: 'We are currently updating the scholarship database. This feature is temporarily paused while we run tests and improvements.',
+      amount: 'N/A',
+      requirements: 'N/A',
+      link: '#'
+    }]);
+
+    setLoading(false);
   };
 
   return (
@@ -163,9 +153,6 @@ export default function ScholarshipFinder({ language = 'en' }) {
             </div>
           ) : (
             <div className="space-y-6">
-              <h3 className="text-xl font-bold text-primary-light mb-4">
-                {t('Found')} {results.length} {t(results.length === 1 ? 'Scholarship' : 'Scholarships')}
-              </h3>
               {results.map((scholarship, idx) => (
                 <div key={idx} className="result-card">
                   <h4 className="text-lg font-semibold text-primary-light mb-3">
