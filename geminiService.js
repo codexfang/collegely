@@ -1,9 +1,13 @@
 // geminiService.js
 // Gemini API Service via Flask backend
 
+import scholarships from './scholarships.json';
+
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
-// Generic POST call to Flask /api/chat endpoint
+// -----------------------
+// Generic Gemini API call
+// -----------------------
 export async function callGemini(prompt) {
   try {
     const response = await fetch(`${BASE_URL}/api/chat`, {
@@ -25,7 +29,9 @@ export async function callGemini(prompt) {
   }
 }
 
+// -----------------------
 // College admissions prediction
+// -----------------------
 export async function predictAdmissions(formData) {
   const collegeNameSafe = formData.college || "the specified college";
   const prompt = `
@@ -51,8 +57,6 @@ RECOMMENDATIONS:
 
   try {
     const result = await callGemini(prompt);
-    console.debug('predictAdmissions - raw response:', result);
-
     const chanceMatch = result.match(/CHANCE:\s*([0-9]{1,3}(?:\.[0-9]+)?\s*%)/i) ||
                         result.match(/([0-9]{1,3}(?:\.[0-9]+)?)\s*%/);
     const explanationMatch = result.match(/EXPLANATION:\s*(.*?)(?=RECOMMENDATIONS:|$)/is);
@@ -74,7 +78,9 @@ RECOMMENDATIONS:
   }
 }
 
+// -----------------------
 // Essay analysis
+// -----------------------
 export async function analyzeEssay(essayText) {
   const prompt = `
 You are a college admissions essay reviewer. Analyze:
@@ -109,7 +115,9 @@ FEEDBACK: [Detailed strengths, weaknesses, and improvements]
   }
 }
 
+// -----------------------
 // Resume generation
+// -----------------------
 export async function generateResumeContent(data) {
   const prompt = `
 You are a professional resume writer. Generate a highly detailed resume.
@@ -158,38 +166,84 @@ Format each section clearly (NAME, CONTACT, SUMMARY, EDUCATION, EXPERIENCE/PROJE
 }
 
 // -----------------------
-// Scholarship finder (from local JSON)
+// Scholarship Finder using local JSON
 // -----------------------
-export async function findScholarships(criteria) {
-  try {
-    const queryParams = new URLSearchParams();
-    if (criteria.lowIncome) queryParams.append("lowIncome", "true");
-    if (criteria.firstGen) queryParams.append("firstGen", "true");
-    if (criteria.volunteer) queryParams.append("volunteer", "true");
-    if (criteria.veteran) queryParams.append("veteran", "true");
-    if (criteria.disability) queryParams.append("disability", "true");
-    if (criteria.minGPA) queryParams.append("minGPA", criteria.minGPA);
-    if (criteria.state) queryParams.append("state", criteria.state);
-    if (criteria.major) queryParams.append("major", criteria.major);
+export function findScholarships(criteria) {
+  const minGPA = parseFloat(criteria.minGPA) || 0;
+  const gender = (criteria.gender || "").toLowerCase();
+  const ethnicity = (criteria.ethnicity || "").toLowerCase();
+  const major = (criteria.major || "").toLowerCase();
+  const state = (criteria.state || "").toLowerCase();
 
-    const response = await fetch(`${BASE_URL}/api/scholarships?${queryParams.toString()}`);
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Scholarships fetch failed! status: ${response.status}, ${errorText}`);
-    }
+  const filtered = scholarships.filter(sch => {
+    const eligibility = (sch.eligibility || "").toLowerCase();
+    if (criteria.lowIncome && !eligibility.includes("low-income")) return false;
+    if (criteria.firstGen && !eligibility.includes("first-generation")) return false;
+    if (criteria.volunteer && !eligibility.includes("volunteer")) return false;
+    if (criteria.veteran && !eligibility.includes("veteran")) return false;
+    if (criteria.disability && !eligibility.includes("disability")) return false;
+    if (gender && !eligibility.includes(gender)) return false;
+    if (ethnicity && !eligibility.includes(ethnicity)) return false;
+    if (major && !eligibility.includes(major)) return false;
+    if (state && !eligibility.includes(state)) return false;
+    if (sch.minGPA && minGPA < sch.minGPA) return false;
+    return true;
+  });
 
-    const data = await response.json();
-    return data;
-
-  } catch (error) {
-    console.error("Scholarship fetching error:", error);
-    // Return 15 placeholders if something fails
-    return Array.from({ length: 15 }, (_, i) => ({
-      name: `Error fetching scholarship ${i + 1}`,
-      description: "Please try again later",
-      amount: "N/A",
-      requirements: "N/A",
+  const results = filtered.slice(0, 15);
+  while (results.length < 15) {
+    results.push({
+      name: "General Merit Scholarship",
+      amount: "$1,000–$2,500",
+      deadline: "Varies",
+      eligibility: "Open to all students",
+      overview: "Academic achievement recognition",
       link: "#"
-    }));
+    });
+  }
+
+  return results;
+}
+
+// -----------------------
+// Internship Analysis using Gemini
+// -----------------------
+export async function analyzeInternship(internship) {
+  const prompt = `
+You are a career counselor and internship advisor. Analyze the following internship posting:
+
+Title: ${internship.title}
+Company: ${internship.company}
+Description: ${internship.description}
+
+Provide a short, structured analysis including:
+- Relevance to career goals
+- Skills gained
+- Suitability for college applications
+
+Format:
+SUMMARY: ...
+SKILLS: ...
+RECOMMENDATIONS: ...
+`;
+
+  try {
+    const result = await callGemini(prompt);
+    const summaryMatch = result.match(/SUMMARY:\s*(.*?)(?=SKILLS:|$)/s);
+    const skillsMatch = result.match(/SKILLS:\s*(.*?)(?=RECOMMENDATIONS:|$)/s);
+    const recommendationsMatch = result.match(/RECOMMENDATIONS:\s*(.*)$/s);
+
+    return {
+      summary: summaryMatch ? summaryMatch[1].trim() : "",
+      skills: skillsMatch ? skillsMatch[1].trim() : "",
+      recommendations: recommendationsMatch ? recommendationsMatch[1].trim() : ""
+    };
+  } catch (error) {
+    console.error("Internship analysis error:", error);
+    return {
+      summary: "",
+      skills: "",
+      recommendations: ""
+    };
   }
 }
