@@ -35,24 +35,39 @@ Format:
 SCORE: [1-10]
 FEEDBACK: [Detailed strengths, weaknesses, improvements, and actionable tips]
 `;try{const n=await Lm(e),r=n.match(/SCORE:\s*(\d+)/),i=n.match(/FEEDBACK:\s*(.*?)$/s);return{score:r?parseInt(r[1]):7,feedback:i?i[1].trim():n}}catch{return{score:null,feedback:"Error analyzing essay. Please try again later."}}}async function HO(t){const e=`
-You are a professional resume writer. Convert the following student info into a **polished, detailed, keyword-rich resume** suitable for college applications or internships.
+You are a professional resume writer. Create a **polished, highly detailed, professional resume** suitable for college applications or internships.
 
-Name: ${t.name}
-Email: ${t.email}
-Phone: ${t.phone}
-Education: ${t.education}
-Activities: ${t.activities.join("; ")}
-Additional Info: ${t.additionalInfo||"None"}
+Include all relevant sections with formatting and bullet points. Use action verbs, keywords, and concise descriptions. Prioritize achievements, leadership, and skills.
 
-Format:
-SUMMARY: [2-3 sentence professional summary]
-EDUCATION: [Detailed achievements and GPA]
-EXPERIENCE: [List experiences and roles]
-SKILLS: [Highlight leadership, technical, teamwork, and problem-solving skills]
-ACHIEVEMENTS: [Awards, honors, and recognitions]
-`;try{const n=await Lm(e),r=n.match(/SUMMARY:\s*\n?(.*?)(?=\n\s*EDUCATION:|$)/s),i=n.match(/EDUCATION:\s*\n?(.*?)(?=\n\s*EXPERIENCE:|$)/s),a=n.match(/EXPERIENCE:\s*\n?(.*?)(?=\n\s*SKILLS:|$)/s),s=n.match(/SKILLS:\s*\n?(.*?)(?=\n\s*ACHIEVEMENTS:|$)/s),l=n.match(/ACHIEVEMENTS:\s*\n?(.*?)$/s);return{summary:r?r[1].trim():"Motivated student with strong academic and extracurricular background.",education:i?i[1].trim():t.education||"Education details missing",experience:a?a[1].trim():t.activities.map(u=>`• ${u}`).join(`
-`),skills:s?s[1].trim():"Leadership, Teamwork, Communication, Problem-solving",achievements:l?l[1].trim():"Awards and recognitions"}}catch(n){return console.error("Resume generation error:",n),{summary:`Motivated student with experience in ${t.activities[0]||"various activities"}.`,education:t.education||"Education in progress",experience:t.activities.map(r=>`• ${r}`).join(`
-`),skills:"Leadership, Teamwork, Communication, Problem-solving",achievements:"Awards and recognitions"}}}async function GO(t){const e=`
+Student Info:
+- Name: ${t.name}
+- Email: ${t.email}
+- Phone: ${t.phone}
+- Education: ${t.education}
+- Activities: ${t.activities.join("; ")}
+- Additional Info: ${t.additionalInfo||"None"}
+
+Resume Format:
+------------------------------------------------
+NAME: [Full Name]
+CONTACT: [Email | Phone]
+SUMMARY:
+- Write a strong 3-4 sentence professional summary highlighting academics, leadership, and skills.
+EDUCATION:
+- Include GPA, honors, awards, relevant coursework.
+EXPERIENCE / PROJECTS:
+- List experiences, internships, volunteer work, projects with bullet points.
+SKILLS:
+- Include technical, leadership, and soft skills.
+ACHIEVEMENTS:
+- List awards, recognitions, and notable accomplishments.
+ADDITIONAL INFO:
+- Optional: certifications, languages, interests.
+
+Output each section clearly and make it **ready to copy into a resume template**.
+`;try{const n=await Lm(e),r=i=>{const a=n.match(new RegExp(`${i}:\\s*(.*?)\\n(?=[A-Z ]+:|$)`,"s"));return a?a[1].trim():""};return{name:r("NAME")||t.name,contact:r("CONTACT")||`${t.email} | ${t.phone}`,summary:r("SUMMARY")||"Motivated student with strong academic and extracurricular background.",education:r("EDUCATION")||t.education||"Education details missing",experience:r("EXPERIENCE / PROJECTS")||t.activities.map(i=>`• ${i}`).join(`
+`),skills:r("SKILLS")||"Leadership, Teamwork, Communication, Problem-solving",achievements:r("ACHIEVEMENTS")||"Awards and recognitions",additionalInfo:r("ADDITIONAL INFO")||t.additionalInfo||"None"}}catch(n){return console.error("Resume generation error:",n),{name:t.name,contact:`${t.email} | ${t.phone}`,summary:"Motivated student with strong academic and extracurricular background.",education:t.education||"Education in progress",experience:t.activities.map(r=>`• ${r}`).join(`
+`),skills:"Leadership, Teamwork, Communication, Problem-solving",achievements:"Awards and recognitions",additionalInfo:t.additionalInfo||"None"}}}async function GO(t){const e=`
 You are a top scholarship advisor. Provide a **list of 15 top national scholarships** for a student with this profile. Include NAME, DESCRIPTION, AMOUNT, REQUIREMENTS, and LINK.
 
 Student Profile:
