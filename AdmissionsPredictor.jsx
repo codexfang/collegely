@@ -64,6 +64,7 @@ const colleges = [
   { label: 'University of Illinois Urbana-Champaign', value: 'uiuc' },
   { label: 'Ohio State University', value: 'osu' },
 ];
+
 const translations = {
   zh: {
     'Admissions Predictor': '录取预测器',
@@ -76,7 +77,7 @@ const translations = {
     'Analysis:': '分析：',
     'Recommendations:': '建议：',
     'Selected College': '选择的学校',
-    'Prediction for': '预测结果 - ',
+    'Prediction for': '预测结果 -',
   }
 };
 
@@ -188,7 +189,8 @@ export default function AdmissionsPredictor({ language = 'en' }) {
 
       {result && (
         <div className="result-card mt-6">
-          <h3 className="result-title">{t('Prediction for')}{getCollegeName()}</h3>
+          {/* Fixed: added space after translation */}
+          <h3 className="result-title">{t('Prediction for')} {getCollegeName()}</h3>
 
           <div className="mb-6 text-center">
             <div className="text-4xl font-bold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent mb-2">

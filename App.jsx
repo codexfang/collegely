@@ -17,7 +17,6 @@ const tabs = [
 
 const languages = [
   { code: 'en', label: 'English' },
-  { code: 'zh', label: '中文' },
 ];
 
 export default function App() {

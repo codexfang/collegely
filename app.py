@@ -1,33 +1,44 @@
-import pandas as pd
+import os
+import requests
 from flask import Flask, request, jsonify
+from dotenv import load_dotenv
 from flask_cors import CORS
-from essay_review import review_essay
-from predictor import predict_admission
-from scholarships import find_scholarships
+
+load_dotenv()
+GEMINI_API_KEY = os.getenv("VITE_GEMINI_API_KEY")
 
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/api/essay', methods=['POST'])
-def essay():
-    essay_text = request.json.get('text')
-    return jsonify(review_essay(essay_text))
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    prompt = request.json.get('prompt')
+    if not prompt:
+        return jsonify({"error": "No prompt provided"}), 400
 
-@app.route('/api/predict', methods=['POST'])
-def predict():
-    data = request.json
-    return jsonify(predict_admission(data))
+    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+    headers = {
+        "Content-Type": "application/json",
+        "X-Goog-Api-Key": GEMINI_API_KEY
+    }
+    body = {
+        "contents": [
+            {"parts": [{"text": prompt}]}
+        ]
+    }
 
-@app.route('/api/scholarships', methods=['POST'])
-def scholarships():
-    preferences = request.json
-    return jsonify(find_scholarships(preferences))
+    response = requests.post(url, headers=headers, json=body)
+    if response.status_code != 200:
+        return jsonify({"error": f"Gemini API error {response.status_code}", "details": response.text}), 500
 
-# ✅ New route to serve CSV as JSON
-@app.route('/api/admissions', methods=['GET'])
-def admissions_data():
-    df = pd.read_csv('college-admissions.csv')  # make sure this file is in the same folder as app.py
-    return jsonify(df.head(100).to_dict(orient='records'))  # send top 100 entries
+    data = response.json()
+    try:
+        # Adjust parsing if Gemini response format changes
+        result_text = data["candidates"][0]["content"]["parts"][0]["text"]
+    except Exception:
+        result_text = str(data)
 
-if __name__ == '__main__':
+    return jsonify({"result": result_text})
+
+if __name__ == "__main__":
     app.run(debug=True)
