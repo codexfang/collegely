@@ -1,8 +1,9 @@
 {
-  "name": "college-admissons-tool",
+  "name": "college-admissions-tool",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://codexfang.github.io/collegely",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
